@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using TaleWorlds.Core;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.MountAndBlade;
@@ -12,18 +13,14 @@ namespace Recruitable
 {
     public class Recruitable : DefaultPrisonerRecruitmentCalculationModel
     {
+        private float[] PrisonerValues { get; set; }
+        public Recruitable()
+        {
+            PrisonerValues = File.ReadLines("..\\..\\Modules\\Recruitable\\bin\\Win64_Shipping_Client\\values.txt").Select(float.Parse).ToArray();
+        }
         public override float[] GetDailyRecruitedPrisoners(MobileParty mainParty)
         {
-            return new float[]
-            {
-                1f,
-                0.7f,
-                0.5f,
-                0.4f,
-                0.3f,
-                0.2f,
-                0.1f
-            };
+            return PrisonerValues;
         }
     }
 }
